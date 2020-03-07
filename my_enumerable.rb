@@ -124,11 +124,11 @@ module Enumerable
 
     new_self = []
     my_each do |element|
-      new_self << if is_a? Hash
-        yield(element[0], element[1])
-      else
-        yield(element)
-      end
+      new_self << if is_a? Hash 
+                    yield(element[0], element[1])
+                  else
+                    yield(element)
+                  end
     end
 
     new_self
