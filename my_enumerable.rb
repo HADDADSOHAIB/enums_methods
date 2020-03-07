@@ -101,9 +101,9 @@ module Enumerable
 
   def my_count(param = nil)
     count = 0
-    if !block_given?
-      return param.nil? ? size : my_count { |element| param == element }
-    elsif is_a? Hash
+    param.nil? ? size : my_count { |element| param == element } unless block_given?
+
+    if is_a? Hash
       my_each do |element|
         next unless yield(element[0], element[1])
         count += 1
