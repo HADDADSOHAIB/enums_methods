@@ -38,6 +38,30 @@ module Enumerable
 
     new_self
   end
+
+  def my_all?(param = nil)
+    if !block_given? && param.nil?
+      my_all? { |element| element }
+    elsif !block_given? && !param.nil?
+      my_all? { |element| param === element }
+    elsif is_a? Hash
+      count = 0
+      my_each do |element|
+        break unless yield(element[0], element[1])
+
+        count += 1
+      end
+      count == size
+    else
+      count = 0
+      my_each do |element|
+        break unless yield(element)
+
+        count += 1
+      end
+      count == size
+    end
+  end
 end
 
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
