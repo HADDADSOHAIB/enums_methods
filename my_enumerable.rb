@@ -101,21 +101,20 @@ module Enumerable
 
   def my_count(param = nil)
     count = 0
-    param.nil? ? size : my_count { |element| param == element } unless block_given?
+    return param.nil? ? size : my_count { |element| param == element } if !block_given?
 
     if is_a? Hash
       my_each do |element|
         next unless yield(element[0], element[1])
         count += 1
       end
-      count
     else
       my_each do |element|
         next unless yield(element)
         count += 1
       end
-      count
     end
+    count
   end
 end
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
