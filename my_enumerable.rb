@@ -150,7 +150,7 @@ module Enumerable
   end
 
   def my_map_with_proc_or_block(&proc)
-    return to_enum(:my_map_with_proc_or_block) unless block_given? 
+    return to_enum(:my_map_with_proc_or_block) unless block_given?
 
     new_self = []
     my_each do |element|
@@ -162,6 +162,31 @@ module Enumerable
     end
 
     new_self
+  end
+
+  def my_inject(*arg)
+    final_value = nil
+    operation = nil
+
+    if arg.length == 2
+      final_value = arg[0]
+      operation = arg[1]
+      my_each do |element|
+        final_value = final_value.send(operation, element)
+      end
+    elsif arg[0].is_a? Symbol
+      operation = arg[0]
+      my_each do |element|
+        final_value = (final_value ? final_value.send(operation, element) : element)
+      end
+    else
+      final_value = arg[0]
+      my_each do |element|
+        final_value = (final_value ? yield(final_value, element) : element)
+      end
+    end
+
+    final_value
   end
 end
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
