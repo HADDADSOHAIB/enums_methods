@@ -17,6 +17,27 @@ module Enumerable
       i += 1
     end
   end
+
+  def my_select
+    return to_enum(:my_select) unless block_given?
+
+    new_self = []
+    new_self = {} if is_a? Hash
+
+    my_each do |element|
+      if new_self.is_a? Hash
+        next unless yield(element[0], element[1])
+
+        new_self[element[0]] = element[1]
+      else
+        next unless yield(element)
+
+        new_self << element
+      end
+    end
+
+    new_self
+  end
 end
 
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
