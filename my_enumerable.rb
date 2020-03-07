@@ -67,13 +67,11 @@ module Enumerable
     elsif is_a? Hash
       my_each do |element|
         return true if yield(element[0], element[1])
-        
       end
       false
     else
       my_each do |element|
         return true if yield(element)
-
       end
       false
     end
