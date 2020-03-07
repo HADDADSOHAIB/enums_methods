@@ -189,4 +189,10 @@ module Enumerable
     final_value
   end
 end
+
+def multiply_els(arr)
+  arr.my_inject(1) { |product, num| product * num }
+end
+
+p multiply_els([2, 4, 5])
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
