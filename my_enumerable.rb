@@ -78,8 +78,8 @@ module Enumerable
   end
 
   def my_none?(param = nil)
-    if !block_given? && param == nil
-      my_none? { |element| param.nil? ? element == true : param === element}
+    if !block_given?
+      my_none? { |element| param.nil? ? element == true : param === element }
     elsif is_a? Hash
       count = 0
       my_each do |element|
@@ -94,7 +94,6 @@ module Enumerable
       end
     end
     count == size
-  
   end
 end
 
