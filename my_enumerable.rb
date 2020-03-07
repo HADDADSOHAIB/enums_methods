@@ -118,5 +118,20 @@ module Enumerable
     end
     count
   end
+
+  def my_map
+    return to_enum(:my_map) unless block_given?
+
+    new_self = []
+    my_each do |element|
+      if is_a? Hash
+        new_self << yield(element[0],element[1])
+      else
+        new_self << yield(element)
+      end
+    end
+
+    new_self
+  end
 end
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
