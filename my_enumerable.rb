@@ -1,4 +1,4 @@
-# rubocop:disable Style/CaseEquality, Metrics/ModuleLength, Style/For
+# rubocop:disable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
 module Enumerable
   def my_each
     return to_enum(:my_each) unless block_given?
@@ -9,4 +9,4 @@ module Enumerable
   end
 end
 
-# rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For
+# rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
