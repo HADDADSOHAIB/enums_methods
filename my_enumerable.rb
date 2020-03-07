@@ -61,17 +61,19 @@ module Enumerable
     end
   end
 
-
   def my_any?(param = nil)
     if !block_given?
       my_any? { |element| param.nil? ? element : param === element }
+    elsif is_a? Hash
+      my_each do |element|
+        return true if yield(element[0], element[1])
+        
+      end
+      false
     else
       my_each do |element|
-        if is_a? Hash
-          return true if yield(element[0], element[1])
-        else
-          return true if yield(element)
-        end
+        return true if yield(element)
+
       end
       false
     end
