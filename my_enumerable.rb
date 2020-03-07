@@ -40,10 +40,8 @@ module Enumerable
   end
 
   def my_all?(param = nil)
-    if !block_given? && param.nil?
-      my_all? { |element| element }
-    elsif !block_given? && !param.nil?
-      my_all? { |element| param === element }
+    if !block_given?
+      my_all? { |element| param.nil? ? element : param === element }
     elsif is_a? Hash
       count = 0
       my_each do |element|
@@ -64,4 +62,5 @@ module Enumerable
   end
 end
 
+p ["jd", "jdksd", true].my_all?
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
