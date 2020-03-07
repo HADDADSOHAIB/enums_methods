@@ -79,7 +79,7 @@ module Enumerable
 
   def my_none?(param = nil)
     if !block_given?
-      my_none? { |element| param.nil? ? element == true : param === element }
+      my_none? { |element| param.nil? ? element : param === element }
     elsif is_a? Hash
       count = 0
       my_each do |element|
@@ -87,16 +87,16 @@ module Enumerable
 
         count += 1
       end
+      count == size
     else
       count = 0
       my_each do |element|
         break if yield(element) == true
-        
+
         count += 1
       end
+      count == size
     end
-    count == size
   end
 end
-
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
