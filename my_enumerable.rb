@@ -124,10 +124,25 @@ module Enumerable
 
     new_self = []
     my_each do |element|
-      new_self << if is_a? Hash 
+      new_self << if is_a? Hash
                     yield(element[0], element[1])
                   else
                     yield(element)
+                  end
+    end
+
+    new_self
+  end
+
+  def my_map_with_proc(&proc)
+    return to_enum(:my_map_with_proc) unless block_given?
+
+    new_self = []
+    my_each do |element|
+      new_self << if is_a? Hash
+                    proc.call(element[0], element[1])
+                  else
+                    proc.call(element)
                   end
     end
 
