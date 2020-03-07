@@ -60,7 +60,22 @@ module Enumerable
       count == size
     end
   end
+
+
+  def my_any?(param = nil)
+    if !block_given?
+      my_any? { |element| param.nil? ? element : param === element }
+    else
+      my_each do |element|
+        if is_a? Hash
+          return true if yield(element[0], element[1])
+        else
+          return true if yield(element)
+        end
+      end
+      false
+    end
+  end
 end
 
-p ["jd", "jdksd", true].my_all?
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
