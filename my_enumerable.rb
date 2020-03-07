@@ -98,5 +98,24 @@ module Enumerable
       count == size
     end
   end
+
+  def my_count(param = nil)
+    count = 0
+    if !block_given?
+      return param.nil? ? size : my_count { |element| param == element }
+    elsif is_a? Hash
+      my_each do |element|
+        next unless yield(element[0], element[1])
+        count += 1
+      end
+      count
+    else
+      my_each do |element|
+        next unless yield(element)
+        count += 1
+      end
+      count
+    end
+  end
 end
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
