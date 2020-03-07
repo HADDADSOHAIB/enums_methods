@@ -76,6 +76,26 @@ module Enumerable
       false
     end
   end
+
+  def my_none?(param = nil)
+    if !block_given? && param == nil
+      my_none? { |element| param.nil? ? element == true : param === element}
+    elsif is_a? Hash
+      count = 0
+      my_each do |element|
+        break if yield(element[0], element[1]) == true
+        count += 1
+      end
+    else
+      count = 0
+      my_each do |element|
+        break if yield(element) == true
+        count += 1
+      end
+    end
+    count == size
+  
+  end
 end
 
 # rubocop:enable Style/CaseEquality, Metrics/ModuleLength, Style/For, Lint/RedundantCopDisableDirective
