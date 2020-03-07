@@ -84,12 +84,14 @@ module Enumerable
       count = 0
       my_each do |element|
         break if yield(element[0], element[1]) == true
+
         count += 1
       end
     else
       count = 0
       my_each do |element|
         break if yield(element) == true
+        
         count += 1
       end
     end
