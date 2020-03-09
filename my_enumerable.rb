@@ -9,9 +9,9 @@ module Enumerable
   end
 
   def my_each_with_index
-    i = 0
     return to_enum(:my_each_with_index) unless block_given?
 
+    i = 0
     for element in self
       yield(element, i)
       i += 1
