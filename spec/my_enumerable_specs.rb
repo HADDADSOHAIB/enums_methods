@@ -97,5 +97,36 @@ RSpec.describe Enumerable do
   end
 
   describe "#my_any" do
+    it "When no block is given, { |item| item } this block is provided" do
+      expect(["ok", false, nil].my_any?).to eq(true)
+    end
+
+    it "When A Parameter is given, { |item| param === item } this block is provided" do
+      expect([true, 1, "ok", 1.5, :a].my_any? String ).to eq(true)
+    end
+
+    it "return true only one value is true for an array" do
+      expect([true, false, nil, 1].my_any?{ |item| item}).to eq(true)
+    end
+
+    it "return false only when all values are false for an array" do
+      expect([false, false, nil, nil, false].my_any?{ |item| item}).to eq(false)
+    end
+
+    it "return true only one value is true for a hash" do
+      expect({'ok' => 1, :a => 1, 1.5 => true}.my_any?{ |k, v| k && v}).to eq(true)
+    end
+
+    it "return false only when all values are false for a hash" do
+      expect({'ok' => false, :a => false, 1.5 => nil, false => :a}.my_any?{ |k, v| k && v}).to eq(false)
+    end
+
+    it "return true only one value is true for a range" do
+      expect((1..10).my_any?{ |value| value <= 1}).to eq(true)
+    end
+
+    it "return false only when all values are false for a range" do
+      expect((1..10).my_any?{ |value| value <= 0}).to eq(false)
+    end
   end
 end
