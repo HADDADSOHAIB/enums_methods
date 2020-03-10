@@ -63,6 +63,14 @@ RSpec.describe Enumerable do
   end
 
   describe "#my_all" do
+    it "When no block is given, { |item| item } this block is provided" do
+      expect([true, 1, "ok", 1.5, :a].my_all?).to eq(true)
+    end
+
+    it "When A Parameter is given, { |item| param === item } this block is provided" do
+      expect([true, 1, "ok", 1.5, :a].my_all?(String)).to eq(false)
+    end
+
     it "return true only all the values are true for an array" do
       expect([true, 1, "ok", 1.5, :a].my_all?{ |item| item}).to eq(true)
     end
@@ -86,5 +94,8 @@ RSpec.describe Enumerable do
     it "return false only one value is false for a range" do
       expect((1..10).my_all?{ |value| value <= 9}).to eq(false)
     end
+  end
+
+  describe "#my_any" do
   end
 end
