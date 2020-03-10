@@ -61,4 +61,30 @@ RSpec.describe Enumerable do
       expect((1..10).my_select{ |value| value < 5}).to eq([1, 2, 3, 4])
     end
   end
+
+  describe "#my_all" do
+    it "return true only all the values are true for an array" do
+      expect([true, 1, "ok", 1.5, :a].my_all?{ |item| item}).to eq(true)
+    end
+
+    it "return false only one value is false for an array" do
+      expect([true, 1, "ok", 1.5, :a, false].my_all?{ |item| item}).to eq(false)
+    end
+
+    it "return true only all the values are true for a hash" do
+      expect({'ok' => 1, :a => 1, 1.5 => true}.my_all?{ |k, v| k && v}).to eq(true)
+    end
+
+    it "return false only one value is false for a hash" do
+      expect({'ok' => 1, :a => 1, 1.5 => nil, false => :a}.my_all?{ |k, v| k && v}).to eq(false)
+    end
+
+    it "return true only all the values are true for a range" do
+      expect((1..10).my_all?{ |value| value <= 10}).to eq(true)
+    end
+
+    it "return false only one value is false for a range" do
+      expect((1..10).my_all?{ |value| value <= 9}).to eq(false)
+    end
+  end
 end
