@@ -200,6 +200,8 @@ RSpec.describe Enumerable do
   end
 
   describe '#my_map' do
+    let(:proc) { Proc.new { |item| item * 3 } }
+    let(:proc_hash) { Proc.new { |k, v| k * v } }
     it 'return the item * 3 from inside the array' do
       new_array = [0, 1, 2, 3].my_map { |item| item * 3 }
       expect(new_array).to eq([0, 3, 6, 9])
@@ -214,11 +216,7 @@ RSpec.describe Enumerable do
       result = (1..5).my_map { |item| item * 3 }
       expect(result).to eq([3, 6, 9, 12, 15])
     end
-  end
 
-  describe '#my_map_with_proc' do
-    let(:proc) { Proc.new { |item| item * 3 } }
-    let(:proc_hash) { Proc.new { |k, v| k * v } }
     it 'return the item * 3 from inside the array' do
       new_array = [0, 1, 2, 3].my_map_with_proc(&proc)
       expect(new_array).to eq([0, 3, 6, 9])
@@ -233,11 +231,7 @@ RSpec.describe Enumerable do
       result = (1..5).my_map_with_proc(&proc)
       expect(result).to eq([3, 6, 9, 12, 15])
     end
-  end
 
-  describe '#my_map_with_proc_or_block' do
-    let(:proc) { Proc.new { |item| item * 3 } }
-    let(:proc_hash) { Proc.new { |k, v| k * v } }
     it 'return the item * 3 from inside the array' do
       new_array = [0, 1, 2, 3].my_map_with_proc_or_block(&proc)
       expect(new_array).to eq([0, 3, 6, 9])
