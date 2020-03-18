@@ -1,4 +1,4 @@
-# rubocop:disable Layout/LineLength, Style/Proc
+# rubocop:disable Layout/LineLength, Style/Proc, Style/BracesAroundHashParameters
 require './my_enumerable.rb'
 
 RSpec.describe Enumerable do
@@ -283,4 +283,4 @@ RSpec.describe Enumerable do
     end
   end
 end
-# rubocop:enable Layout/LineLength, Style/Proc
+# rubocop:enable Layout/LineLength, Style/Proc, Style/BracesAroundHashParameters
